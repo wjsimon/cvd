@@ -1,0 +1,17 @@
+@CVd_HostAddress = https://localhost:7124
+
+GET {{CVd_HostAddress}}/user/1
+Accept: application/json
+
+###
+
+POST {{CVd_HostAddress}}/user
+Content-Type: application/json
+{
+  "id":"1",
+  "surname":"Wilhelm",
+  "familyName":"Simon"
+}
+###
+
+DELETE {{CVd_HostAddress}}/user/1
