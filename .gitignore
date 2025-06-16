@@ -69,6 +69,9 @@ ScaffoldingReadMe.txt
 # StyleCop
 StyleCopReport.xml
 
+# EF Core
+[Mm]igrations/
+
 # Files built by Visual Studio
 *_i.c
 *_p.c

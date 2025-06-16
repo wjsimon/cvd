@@ -6,6 +6,8 @@ namespace CVd
     {
         public static void Main(string[] args)
         {
+            EnsureDatabaseExists();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -16,35 +18,27 @@ namespace CVd
 
             // Configure the HTTP request pipeline.
             app.UseHttpsRedirection().UseAuthorization();
-            app.MapGet("/user/{id}", (CvDbContext db, int id) => {
-                
-                if (db.Users.Find(id) is CvDbContext.User user)
-                {
-                    return Results.Ok(user);
-                }
 
-                return Results.NotFound();
-            });
-
-            app.MapPost("/user", (CvDbContext db, CvDbContext.User user) =>
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
-            });
-
-            app.MapDelete("/user/{id}", (CvDbContext db, int id) =>
-            {
-                if (db.Users.Find(id) is CvDbContext.User user)
-                {
-                    db.Users.Remove(user);
-                    db.SaveChanges();
-                    return Results.NoContent();
-                }
-
-                return Results.NotFound();
-            });
+#if DEBUG
+            Endpoints.Configure(app, true);
+#else
+            Endpoints.Configure(app);
+#endif
 
             app.Run();
+        }
+
+        private static void EnsureDatabaseExists()
+        {
+            var path = Path.Join(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "cv.db");
+
+            while (!File.Exists(path))
+            {
+                Console.WriteLine($"No database found at {path}! Please add the database, then press any key to re-try.");
+                Console.ReadKey();
+            }
         }
     }
 }
