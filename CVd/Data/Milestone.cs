@@ -7,10 +7,12 @@ namespace CVd.Data
     {
         [Key] public int Id { get; set; }
         [ForeignKey("UserId")] public required int UserId { get; set; }
-        [ForeignKey("DescriptionId")] public int DescriptionId { get; set; }
-
+        
+        public int DescriptionId { get; set; } //not a foreign key; aggregated at runtime based on languagecode
         public required string Name { get; set; }
         public required DateOnly Start { get; set; }
         public DateOnly? End { get; set; }
+
+        [NotMapped] public string? Description { get; set; } //can only be mapped at runtime
     }
 }

@@ -20,7 +20,7 @@ namespace CVd
             app.UseHttpsRedirection().UseAuthorization();
 
 #if DEBUG
-            Endpoints.Configure(app, true);
+            Endpoints.Configure(app, includeMutations: true);
 #else
             Endpoints.Configure(app);
 #endif

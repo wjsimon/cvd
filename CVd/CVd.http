@@ -1,6 +1,6 @@
 @CVd_HostAddress = https://localhost:7124
 
-GET {{CVd_HostAddress}}/user/1
+GET {{CVd_HostAddress}}/user/1?lang=en
 Accept: application/json
 
 ###

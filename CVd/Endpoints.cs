@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVd
 {
-    public static class Endpoints
+    public static partial class Endpoints
     {
         public static void Configure(WebApplication app, bool includeMutations = false)
         {
@@ -18,16 +18,26 @@ namespace CVd
 
         private static WebApplication MapGet(this WebApplication app)
         {
-            app.MapGet("/user/{id}", (CvDbContext db, int id) => 
+            app.MapGet("/user/{id}", (CvDbContext db, int id, string lang) => 
             {
                 try
                 {
                     var user = db.Users
+                        .Include(u => u.Milestones)
                         .Include(u => u.Skills)
                         .Include(u => u.Decorations)
                         .FirstOrDefault(u => u.Id == id);
 
                     if (user == null) { return Results.NotFound(); }
+
+                    //single db query, then aggregate in-memory
+                    var descriptions = db.MilestoneDescriptions.Where(md => 
+                        md.LanguageCode == lang && user.Decorations.Select(d => d.Id).Contains(md.DescriptionId));
+
+                    foreach (var milestone in user.Milestones)
+                    {
+                        milestone.Description = descriptions.FirstOrDefault(d => d.DescriptionId == milestone.Id)?.Value;
+                    }
 
                     return Results.Ok(user);
                 }
@@ -54,58 +64,6 @@ namespace CVd
                 {
                     return Results.BadRequest();
                 }
-            });
-
-            return app;
-        }
-
-        private static WebApplication MapPost(this WebApplication app)
-        {
-            app.MapPost("/user", (CvDbContext db, User user) =>
-            {
-                try
-                {
-                    db.Users.Add(user);
-                    db.SaveChanges();
-
-                    return Results.NoContent();
-                }
-                catch
-                {
-                    return Results.BadRequest();
-                }
-            });
-
-            app.MapPost("/skill", (CvDbContext db, Skill skill) =>
-            {
-                try
-                {
-                    db.Skills.Add(skill);
-                    db.SaveChanges();
-
-                    return Results.NoContent();
-                }
-                catch
-                {
-                    return Results.BadRequest();
-                }
-            });
-
-            return app;
-        }
-
-        private static WebApplication MapDelete(this WebApplication app)
-        {
-            app.MapDelete("/user/{id}", (CvDbContext db, int id) =>
-            {
-                if (db.Users.Find(id) is User user)
-                {
-                    db.Users.Remove(user);
-                    db.SaveChanges();
-                    return Results.NoContent();
-                }
-
-                return Results.NotFound();
             });
 
             return app;
