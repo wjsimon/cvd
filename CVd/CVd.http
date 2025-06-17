@@ -1,7 +1,11 @@
 @CVd_HostAddress = https://localhost:7124
 
-GET {{CVd_HostAddress}}/user/1
+GET {{CVd_HostAddress}}/user/1?lang=en
 Accept: application/json
+
+###
+
+GET {{CVd_HostAddress}}/skills/1
 
 ###
 
@@ -10,8 +14,22 @@ Content-Type: application/json
 {
   "id":"1",
   "surname":"Wilhelm",
-  "familyName":"Simon"
+  "familyName":"Simon",
+  "dateOfBirth":"1996-06-15"
 }
+
+###
+
+POST {{CVd_HostAddress}}/skill
+Content-Type: application/json
+{
+  "id":"minimalApis",
+  "userId":"1",
+  "displayValue":"ASP.NET Core Minimal APIs"
+}
+
 ###
 
 DELETE {{CVd_HostAddress}}/user/1
+
+###
