@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CVd.Database
+namespace CVd.Data
 {
     public class Skill
     {
@@ -9,5 +9,15 @@ namespace CVd.Database
         [ForeignKey("UserId")] public required int UserId { get; set; }
 
         public string? DisplayValue { get; set; } //if unused, Id can be
+        public SkillCategory Category { get; set; }
+        public string? Style { get; set; }
+
+        public enum SkillCategory
+        {
+            Unassociated = 0,
+            Language,
+            Framework,
+            Tool
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CVd.Database;
+﻿using CVd.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVd
@@ -22,7 +22,11 @@ namespace CVd
             {
                 try
                 {
-                    var user = db.Users.Include(u => u.Skills).FirstOrDefault(u => u.Id == id);
+                    var user = db.Users
+                        .Include(u => u.Skills)
+                        .Include(u => u.Decorations)
+                        .FirstOrDefault(u => u.Id == id);
+
                     if (user == null) { return Results.NotFound(); }
 
                     return Results.Ok(user);

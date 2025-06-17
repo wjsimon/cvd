@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CVd.Database
+namespace CVd.Data
 {
     public partial class CvDbContext : DbContext
     {
@@ -14,6 +14,7 @@ namespace CVd.Database
         public DbSet<User> Users { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Milestone> Milestones { get; set; }
+        public DbSet<MilestoneDescription> MilestoneDescriptions { get; set; }
         public DbSet<Decoration> Decorations { get; set; }
 
         public string DbPath { get; }

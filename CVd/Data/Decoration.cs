@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CVd.Database
+namespace CVd.Data
 {
     public class Decoration
     {
