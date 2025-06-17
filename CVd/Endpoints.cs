@@ -9,9 +9,10 @@ namespace CVd
         {
             app.MapGet("/user/{id}", (CvDbContext db, int id, string lang) =>
             {
-                WrapHandler((CvDbContext db, int id, string lang) =>
+                try
                 {
                     var user = db.Users
+                       .Include(u => u.Contacts)
                        .Include(u => u.Milestones)
                        .Include(u => u.Skills)
                        .Include(u => u.Decorations)
@@ -29,40 +30,17 @@ namespace CVd
                     }
 
                     return Results.Ok(user);
-                });
+                }
+                catch
+                {
+                    return Results.BadRequest();
+                }
             });
 
             if (mapAdditional)
             {
                 app.MapAdditional();
             }
-        }
-
-        private static IResult WrapHandler(Delegate handler)
-        {
-            try
-            {
-                var result = handler.DynamicInvoke();
-                if (result != null)
-                {
-                    return (IResult)result;
-                }
-                else
-                {
-                    return Results.NoContent();
-                }
-            }
-#if DEBUG
-            catch (Exception ex)
-            {
-                return Results.BadRequest(ex);
-            }
-#else
-            catch
-            {
-                return Results.BadRequest(ex);
-            }
-#endif
         }
     }
 }

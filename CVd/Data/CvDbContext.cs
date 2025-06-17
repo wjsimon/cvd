@@ -11,6 +11,7 @@ namespace CVd.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Milestone> Milestones { get; set; }
         public DbSet<MilestoneDescription> MilestoneDescriptions { get; set; }

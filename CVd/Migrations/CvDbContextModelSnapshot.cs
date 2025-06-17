@@ -17,6 +17,33 @@ namespace CVd.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
 
+            modelBuilder.Entity("CVd.Data.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descriptor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("CVd.Data.Decoration", b =>
                 {
                     b.Property<int>("Id")
@@ -128,6 +155,15 @@ namespace CVd.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("CVd.Data.Contact", b =>
+                {
+                    b.HasOne("CVd.Data.User", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CVd.Data.Decoration", b =>
                 {
                     b.HasOne("CVd.Data.User", null)
@@ -157,6 +193,8 @@ namespace CVd.Migrations
 
             modelBuilder.Entity("CVd.Data.User", b =>
                 {
+                    b.Navigation("Contacts");
+
                     b.Navigation("Decorations");
 
                     b.Navigation("Milestones");
