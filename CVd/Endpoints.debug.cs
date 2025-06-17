@@ -1,9 +1,36 @@
 ﻿using CVd.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace CVd
 {
     public static partial class Endpoints
     {
+        private static void MapAdditional(this WebApplication app)
+            => app.MapGet().MapPost().MapDelete();
+
+        private static WebApplication MapGet(this WebApplication app)
+        {
+            app.MapGet("/skills/{userId}", (CvDbContext db, int userId) =>
+            {
+                try
+                {
+                    var skills = db.Users
+                        .Include(u => u.Skills)
+                        .FirstOrDefault(u => u.Id == userId)?.Skills;
+
+                    if (skills == null) { return Results.NotFound(); }
+
+                    return Results.Ok(skills);
+                }
+                catch
+                {
+                    return Results.BadRequest();
+                }
+            });
+
+            return app;
+        }
+
         private static WebApplication MapPost(this WebApplication app)
         {
             app.MapPost("/user", (CvDbContext db, User user) =>

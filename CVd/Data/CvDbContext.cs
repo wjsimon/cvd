@@ -4,13 +4,12 @@ namespace CVd.Data
 {
     public partial class CvDbContext : DbContext
     {
-        public CvDbContext(DbContextOptions<CvDbContext> options) : base(options) 
+        public CvDbContext(DbContextOptions<CvDbContext> options) : this(Program.dbPath, options) { }
+        public CvDbContext(string dbpath, DbContextOptions<CvDbContext> options) : base(options)
         {
-            DbPath = Path.Join(
-                AppDomain.CurrentDomain.BaseDirectory, 
-                "cv.db");
+            DbPath = dbpath;
         }
-        
+
         public DbSet<User> Users { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Milestone> Milestones { get; set; }

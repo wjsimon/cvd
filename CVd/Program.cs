@@ -4,39 +4,29 @@ namespace CVd
 {
     public class Program
     {
+        public static readonly string dbPath = Path.Join(AppDomain.CurrentDomain.BaseDirectory, "cv.db");
+
         public static void Main(string[] args)
         {
             EnsureDatabaseExists();
 
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            builder.Services.AddAuthorization();
             builder.Services.AddDbContext<CvDbContext>();
 
             var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            app.UseHttpsRedirection().UseAuthorization();
-
 #if DEBUG
-            Endpoints.Configure(app, includeMutations: true);
+            Endpoints.Configure(app, mapAdditional: true);
 #else
             Endpoints.Configure(app);
 #endif
-
             app.Run();
         }
 
         private static void EnsureDatabaseExists()
         {
-            var path = Path.Join(
-                AppDomain.CurrentDomain.BaseDirectory,
-                "cv.db");
-
-            while (!File.Exists(path))
+            while (!File.Exists(dbPath))
             {
-                Console.WriteLine($"No database found at {path}! Please add the database, then press any key to re-try.");
+                Console.WriteLine($"No database found at {dbPath}! Please add the database, then press any key to re-try.");
                 Console.ReadKey();
             }
         }

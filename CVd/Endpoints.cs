@@ -5,33 +5,22 @@ namespace CVd
 {
     public static partial class Endpoints
     {
-        public static void Configure(WebApplication app, bool includeMutations = false)
+        public static void Configure(WebApplication app, bool mapAdditional = false)
         {
-            app.MapGet();
-
-            if (includeMutations)
+            app.MapGet("/user/{id}", (CvDbContext db, int id, string lang) =>
             {
-                app.MapPost()
-                 .MapDelete();
-            }
-        }
-
-        private static WebApplication MapGet(this WebApplication app)
-        {
-            app.MapGet("/user/{id}", (CvDbContext db, int id, string lang) => 
-            {
-                try
+                WrapHandler((CvDbContext db, int id, string lang) =>
                 {
                     var user = db.Users
-                        .Include(u => u.Milestones)
-                        .Include(u => u.Skills)
-                        .Include(u => u.Decorations)
-                        .FirstOrDefault(u => u.Id == id);
+                       .Include(u => u.Milestones)
+                       .Include(u => u.Skills)
+                       .Include(u => u.Decorations)
+                       .FirstOrDefault(u => u.Id == id);
 
                     if (user == null) { return Results.NotFound(); }
 
                     //single db query, then aggregate in-memory
-                    var descriptions = db.MilestoneDescriptions.Where(md => 
+                    var descriptions = db.MilestoneDescriptions.Where(md =>
                         md.LanguageCode == lang && user.Decorations.Select(d => d.Id).Contains(md.DescriptionId));
 
                     foreach (var milestone in user.Milestones)
@@ -40,33 +29,40 @@ namespace CVd
                     }
 
                     return Results.Ok(user);
-                }
-                catch
-                {
-                    return Results.BadRequest();
-                }
+                });
             });
 
-            app.MapGet("/skills/{userId}", (CvDbContext db, int userId) =>
+            if (mapAdditional)
             {
-                try
+                app.MapAdditional();
+            }
+        }
+
+        private static IResult WrapHandler(Delegate handler)
+        {
+            try
+            {
+                var result = handler.DynamicInvoke();
+                if (result != null)
                 {
-                    var skills = db.Users
-                        .Include(u => u.Skills)
-                        .FirstOrDefault(u => u.Id == userId)?
-                        .Skills;
-
-                    if (skills == null) { return Results.NotFound(); }
-
-                    return Results.Ok(skills);
+                    return (IResult)result;
                 }
-                catch
+                else
                 {
-                    return Results.BadRequest();
+                    return Results.NoContent();
                 }
-            });
-
-            return app;
+            }
+#if DEBUG
+            catch (Exception ex)
+            {
+                return Results.BadRequest(ex);
+            }
+#else
+            catch
+            {
+                return Results.BadRequest(ex);
+            }
+#endif
         }
     }
 }
