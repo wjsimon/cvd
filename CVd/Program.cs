@@ -11,9 +11,18 @@ namespace CVd
             EnsureDatabaseExists();
 
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<CvDbContext>();
+            builder.Services
+                .AddDbContext<CvDbContext>()
+                .AddCors(options =>
+                {
+                    options.AddDefaultPolicy(builder =>
+                    {
+                        builder.SetIsOriginAllowed(origin => OriginAllowed(origin));
+                    });
+                });
 
             var app = builder.Build();
+            app.UseCors();
 #if DEBUG
             Endpoints.Configure(app, mapAdditional: true);
 #else
@@ -29,6 +38,11 @@ namespace CVd
                 Console.WriteLine($"No database found at {dbPath}! Please add the database, then press any key to re-try.");
                 Console.ReadKey();
             }
+        }
+
+        private static bool OriginAllowed(string origin)
+        {
+            return origin.Contains("localhost") || origin.Contains("dev.local");
         }
     }
 }

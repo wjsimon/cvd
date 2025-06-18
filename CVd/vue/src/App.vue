@@ -1,5 +1,14 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
+import { fuser } from './js/fetch.mjs'
+
+async function get() {
+  var user = await fuser('http://localhost:5148', 1, 'de');
+  console.log('user: ' + user);
+}
+
+get();
+
 </script>
 
 <template>
