@@ -22,11 +22,11 @@ namespace CVd
 
                     //single db query, then aggregate in-memory
                     var descriptions = db.MilestoneDescriptions.Where(md =>
-                        md.LanguageCode == lang && user.Decorations.Select(d => d.Id).Contains(md.DescriptionId));
+                        md.LanguageCode == lang && user.Milestones.Select(d => d.DescriptionId).Contains(md.DescriptionId));
 
                     foreach (var milestone in user.Milestones)
                     {
-                        milestone.Description = descriptions.FirstOrDefault(d => d.DescriptionId == milestone.Id)?.Value;
+                        milestone.Description = descriptions.FirstOrDefault(d => d.DescriptionId == milestone.DescriptionId);
                     }
 
                     return Results.Ok(user);

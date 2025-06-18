@@ -66,22 +66,24 @@ namespace CVd.Migrations
 
             modelBuilder.Entity("CVd.Data.Milestone", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DescriptionId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly?>("End")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("EndOption")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("Start")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("StartOption")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -95,13 +97,17 @@ namespace CVd.Migrations
 
             modelBuilder.Entity("CVd.Data.MilestoneDescription", b =>
                 {
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DescriptionId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LanguageCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Value")
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("DescriptionId", "LanguageCode");
