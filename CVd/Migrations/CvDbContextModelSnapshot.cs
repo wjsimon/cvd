@@ -17,6 +17,33 @@ namespace CVd.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
 
+            modelBuilder.Entity("CVd.Data.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descriptor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Contacts");
+                });
+
             modelBuilder.Entity("CVd.Data.Decoration", b =>
                 {
                     b.Property<int>("Id")
@@ -39,22 +66,24 @@ namespace CVd.Migrations
 
             modelBuilder.Entity("CVd.Data.Milestone", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DescriptionId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateOnly?>("End")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("EndOption")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("Start")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("StartOption")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
@@ -68,13 +97,17 @@ namespace CVd.Migrations
 
             modelBuilder.Entity("CVd.Data.MilestoneDescription", b =>
                 {
-                    b.Property<int>("DescriptionId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("DescriptionId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LanguageCode")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Value")
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("DescriptionId", "LanguageCode");
@@ -128,6 +161,15 @@ namespace CVd.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("CVd.Data.Contact", b =>
+                {
+                    b.HasOne("CVd.Data.User", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CVd.Data.Decoration", b =>
                 {
                     b.HasOne("CVd.Data.User", null)
@@ -157,6 +199,8 @@ namespace CVd.Migrations
 
             modelBuilder.Entity("CVd.Data.User", b =>
                 {
+                    b.Navigation("Contacts");
+
                     b.Navigation("Decorations");
 
                     b.Navigation("Milestones");
