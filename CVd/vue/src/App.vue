@@ -1,9 +1,9 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
-import { fuser } from './js/fetch.mjs'
+import { fetchUser } from './js/fetch.mjs'
 
 async function get() {
-  var user = await fuser('http://localhost:5148', 1, 'de');
+  var user = await fetchUser('http://localhost:5148', 1, 'de');
   console.log('user: ' + user);
 }
 
@@ -21,6 +21,9 @@ get();
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <h1 class="text-3xl font-bold underline">
+    Hello world!
+  </h1>
 </template>
 
 <style scoped>
