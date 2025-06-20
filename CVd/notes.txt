@@ -1,0 +1,4 @@
+"Project" DB table
+add ""Entity Framework" skill
+skill sort order
+milestones title => "job" + "title" or "row 1" + "row 2"
