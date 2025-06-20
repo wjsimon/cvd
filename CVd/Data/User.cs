@@ -10,8 +10,8 @@ namespace CVd.Data
         public required DateOnly DateOfBirth { get; set; }
 
         public ICollection<Contact> Contacts { get; set; } = [];
+        public ICollection<Milestone> Milestones { get; set; } = [];
         public ICollection<Skill> Skills { get; set; } = [];
-        public ICollection<Milestone> Milestones { get; set; } = [];    
         public ICollection<Decoration> Decorations { get; set; } = [];
     }
 }
