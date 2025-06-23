@@ -12,11 +12,12 @@ namespace CVd.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Skill> Skills { get; set; }
         public DbSet<Milestone> Milestones { get; set; }
         public DbSet<MilestoneDescription> MilestoneDescriptions { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Project> Projects {  get; set; }
+        public DbSet<ProjectDescription> ProjectDescriptions { get; set; }
         public DbSet<Decoration> Decorations { get; set; }
-
         public string DbPath { get; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

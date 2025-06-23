@@ -24,10 +24,12 @@ get();
                 <div class="flex flex-col gap-4">
                     <div v-for="entry in user.milestones" class="milestone">
                         <div class="milestone-head">
-                            <span class="head-job">{{ entry.description.title }}</span>
+                            <span class="head-job">{{ entry.description.row1 }}</span>
                             <span class="head-date">{{ entry.start }} - {{ entry.end }}</span>
                         </div>
-                        <div class="head-title"></div>
+                        <div class="head-title">
+                            <span class="head-title">{{ entry.description.row2 }}</span>
+                        </div>
                         <div class="milestone-content"></div>
                     </div>
                 </div>
@@ -62,6 +64,9 @@ get();
         text-align: start;
     }
 
+    .head-title {
+        @apply text-left;
+    }
     .head-date {
         white-space: nowrap;
     }

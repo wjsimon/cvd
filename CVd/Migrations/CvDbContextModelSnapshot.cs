@@ -106,13 +106,54 @@ namespace CVd.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DisplayTag")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Row1")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Row2")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DescriptionId", "LanguageCode");
+
+                    b.ToTable("MilestoneDescriptions");
+                });
+
+            modelBuilder.Entity("CVd.Data.Project", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("CVd.Data.ProjectDescription", b =>
+                {
+                    b.Property<string>("DescriptionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LanguageCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("DescriptionId", "LanguageCode");
 
-                    b.ToTable("MilestoneDescriptions");
+                    b.ToTable("ProjectDescriptions");
                 });
 
             modelBuilder.Entity("CVd.Data.Skill", b =>
@@ -125,6 +166,12 @@ namespace CVd.Migrations
 
                     b.Property<string>("DisplayValue")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("LanguageCode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SortOrder")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Style")
                         .HasColumnType("TEXT");
@@ -188,6 +235,15 @@ namespace CVd.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CVd.Data.Project", b =>
+                {
+                    b.HasOne("CVd.Data.User", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CVd.Data.Skill", b =>
                 {
                     b.HasOne("CVd.Data.User", null)
@@ -204,6 +260,8 @@ namespace CVd.Migrations
                     b.Navigation("Decorations");
 
                     b.Navigation("Milestones");
+
+                    b.Navigation("Projects");
 
                     b.Navigation("Skills");
                 });

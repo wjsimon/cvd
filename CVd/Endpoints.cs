@@ -14,19 +14,29 @@ namespace CVd
                     var user = db.Users
                        .Include(u => u.Contacts)
                        .Include(u => u.Milestones)
-                       .Include(u => u.Skills)
+                       .Include(u => u.Skills
+                           .Where(s => string.IsNullOrEmpty(s.LanguageCode) || s.LanguageCode == lang))
+                       .Include(u => u.Projects)
                        .Include(u => u.Decorations)
                        .FirstOrDefault(u => u.Id == id);
 
                     if (user == null) { return Results.NotFound(); }
 
                     //single db query, then aggregate in-memory
-                    var descriptions = db.MilestoneDescriptions.Where(md =>
+                    var mDescriptions = db.MilestoneDescriptions.Where(md =>
                         md.LanguageCode == lang && user.Milestones.Select(d => d.DescriptionId).Contains(md.DescriptionId));
 
                     foreach (var milestone in user.Milestones)
                     {
-                        milestone.Description = descriptions.FirstOrDefault(d => d.DescriptionId == milestone.DescriptionId);
+                        milestone.Description = mDescriptions.FirstOrDefault(d => d.DescriptionId == milestone.DescriptionId);
+                    }
+
+                    var pDescriptions = db.ProjectDescriptions.Where(pd =>
+                        pd.LanguageCode == lang && user.Projects.Select(d => d.Id).Contains(pd.DescriptionId));
+
+                    foreach (var project in user.Projects)
+                    {
+                        project.Description = pDescriptions.FirstOrDefault(d => d.DescriptionId == project.Id);
                     }
 
                     return Results.Ok(user);
