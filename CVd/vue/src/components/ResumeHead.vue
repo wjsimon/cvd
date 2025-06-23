@@ -9,7 +9,7 @@ const props = defineProps({
 
 </script>
 <template>
-        <div class="flex flex-row p-2 border-b-1 justify-center">
+        <div class="flex flex-row p-2 border-b-1 justify-evenly">
             <div class="flex flex-col p-2 gap-1 justify-center">
                 <span class="text-2xl">{{ user.surname }} {{ user.familyName }}</span>
                 <div id="decorations" class="flex flex-row">
