@@ -9,9 +9,9 @@ const props = defineProps({
 
 </script>
 <template>
-        <div class="flex flex-row p-2 border-b-1 justify-evenly">
+        <div class="flex flex-row p-2 mx-4 border-b-1 justify-evenly">
             <div class="flex flex-col p-2 gap-1 justify-center">
-                <span class="text-2xl">{{ user.surname }} {{ user.familyName }}</span>
+                <span class="text-3xl">{{ user.surname }} {{ user.familyName }}</span>
                 <div id="decorations" class="flex flex-row">
                     <div v-for="(decoration, index) in user.decorations" class="decoration">
                         <span>{{ decoration.value }}</span>
@@ -19,7 +19,9 @@ const props = defineProps({
                     </div>
                 </div>
             </div>
-            <img src="../assets/profile_picture.jpeg" class="w-50 h-50 object-cover rounded-full p-4"/>
+            <div class="p-4">
+                <img src="../assets/profile_picture.jpeg" class="w-50 h-50 object-cover rounded-full border-4 border-yellow-500 p-1"/>
+            </div>
             <div class="flex flex-row p-2 gap-2 items-center">
                 <div class="flex flex-col items-start">
                     <span v-for="contact in user.contacts" class="contact">{{ contact.descriptor }}:</span>
@@ -38,10 +40,10 @@ const props = defineProps({
     }
 
     .decoration {
-        @apply flex gap-2 text-xs text-gray-500 dark:text-gray-300 
+        @apply flex gap-2 text-sm text-neutral-500 dark:text-neutral-300 
     }
 
     .contact {
-        @apply text-sm text-gray-500 dark:text-gray-300
+        @apply text-neutral-500 dark:text-neutral-300
     }
 </style>

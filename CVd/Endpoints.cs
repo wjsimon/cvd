@@ -15,8 +15,10 @@ namespace CVd
                        .Include(u => u.Contacts)
                        .Include(u => u.Milestones)
                        .Include(u => u.Skills
-                           .Where(s => string.IsNullOrEmpty(s.LanguageCode) || s.LanguageCode == lang))
-                       .Include(u => u.Projects)
+                            .Where(s => string.IsNullOrEmpty(s.LanguageCode) || s.LanguageCode == lang)
+                            .OrderBy(s => s.SortOrder))
+                       .Include(u => u.Projects
+                            .OrderBy(s => s.SortOrder))
                        .Include(u => u.Decorations)
                        .FirstOrDefault(u => u.Id == id);
 

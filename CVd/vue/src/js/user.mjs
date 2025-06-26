@@ -25,6 +25,7 @@ export class User {
         user.milestones = this._listAssign(user.milestones);
         user.skills = this._listAssign(user.skills);
         user.decorations = this._listAssign(user.decorations);
+        user.projects = this._listAssign(user.projects);
 
         //need to do some additional parsing here for milestone descriptions specifically
         return user;

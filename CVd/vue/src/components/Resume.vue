@@ -21,13 +21,14 @@ get();
     <!-- make response, maybe even "reactive" -->
     <div v-if="user" class="resume">
         <ResumeHead :user="user" />
-        <div class="flex flex-row p-2 w-full" style="gap: 6rem;">
+        <div class="flex flex-row p-2 w-full" style="gap: 2rem;">
             <div class="flex flex-col p-4" style="width: 50%;">
                 <Milestones :user="user"/>
             </div>
             <div class="flex flex-row p-4" style="width: 50%;">
                 <div class="flex flex-col">
-                    <Skills :user="user"/>
+                    <Skills :user="user" />
+                    <div class="mt-8"></div>
                     <Projects :user="user" />
                 </div>
             </div>
@@ -40,6 +41,6 @@ get();
     @reference "tailwindcss";
 
     .resume {
-        @apply border-1 border-solid rounded-xl;
+        @apply p-4 bg-white dark:bg-neutral-800 rounded-lg overflow-hidden;
     }
 </style>

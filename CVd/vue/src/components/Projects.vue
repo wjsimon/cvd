@@ -10,11 +10,14 @@ const props = defineProps({
 </script>
 
 <template>
-    <span class="text-xl p-2 mb-2">Projects</span>
+    <span class="text-xl p-2 mb-2 underline">Projects</span>
     <div class="flex flex-col flex-wrap" style="gap: 2rem;">
         <div v-for="entry in user.projects" class="flex flex-col gap-1 text-left">
-            <span class="font-bold">{{ entry.description.title }}</span>
+            <div class="flex flex-row justify-between">
+                <span class="font-bold">{{ entry.description.title }}</span>
+            </div>
             <span class="">{{ entry.description.description }}</span>
+            <a :href="entry.link" class="font-bold self-end mt-2">{{ entry.link }}</a>
         </div>
     </div>
 </template>
