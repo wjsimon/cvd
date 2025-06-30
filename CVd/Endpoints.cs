@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CVd
 {
-    public static partial class Endpoints
+    internal static partial class Endpoints
     {
         public static void Configure(WebApplication app, bool mapAdditional = false)
         {
