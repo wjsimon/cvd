@@ -21,7 +21,7 @@ function getCategoryClass(category) {
     <span class="text-xl p-2 mb-2 underline">Skills</span>
     <div class="flex flex-row flex-wrap gap-4">
         <div v-for="entry in user.skills" class="skill" :class="getCategoryClass(entry.category)">
-            <span>{{ entry.displayValue }}</span>
+            <span class="bg-neutral-100 dark:bg-neutral-800">{{ entry.displayValue }}</span>
         </div>
     </div>
 </template>
@@ -30,7 +30,7 @@ function getCategoryClass(category) {
     @reference "tailwindcss";
 
     .skill {
-        @apply relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-neutral-900 rounded-lg;
+        @apply relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium rounded-lg;
         font-family: sharetech;
     }
 
@@ -47,6 +47,6 @@ function getCategoryClass(category) {
     }
 
     .skill > span {
-        @apply relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-neutral-900 rounded-md hover:bg-transparent;
+        @apply relative px-5 py-2.5 transition-all ease-in duration-75 rounded-md hover:bg-transparent;
     }
 </style>

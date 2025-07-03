@@ -10,12 +10,14 @@ const props = defineProps({
 </script>
 
 <template>
-<span class="text-xl p-2 mb-2 underline">Milestones</span>
 <div class="flex flex-col gap-4">
+    <span class="text-xl p-2 mb-2 underline">Milestones</span>
     <div v-for="entry in user.milestones" class="milestone bg-neutral-100 dark:bg-neutral-800">
         <div class="milestone-head">
             <span class="head-job">{{ entry.description.row1 }}</span>
-            <span class="head-date">{{ entry.start }} - {{ entry.end }}</span>
+            <div class="flex flex-row">
+                <span class="head-date">{{ entry.start }}</span><span v-if="entry.end">&nbsp;-&nbsp;{{ entry.end }}</span>
+            </div>
         </div>
         <div v-if="entry.description.row2" class="head-title">
             <span class="head-title">{{ entry.description.row2 }}</span>

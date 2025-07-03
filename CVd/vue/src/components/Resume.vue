@@ -22,16 +22,16 @@ get();
     <!-- make response, maybe even "reactive" -->
     <div v-if="user" class="resume bg-neutral-100 dark:bg-neutral-800">
         <ResumeHead :user="user" />
-        <div class="flex flex-row p-2 w-full" style="gap: 2rem;">
-            <div class="flex flex-col p-4" style="width: 50%;">
+        <div class="resume-body">
+            <div class="grid w-full milestones-container">
                 <Milestones :user="user"/>
             </div>
-            <div class="flex flex-row p-4" style="width: 50%;">
-                <div class="flex flex-col">
-                    <Skills :user="user" />
-                    <div class="mt-8"></div>
-                    <Projects :user="user" />
-                </div>
+            <div class="grid">
+                <Skills :user="user" />
+                <div class="mt-8"></div>
+            </div>
+            <div class="grid" style="grid-column-start: 2;">
+                <Projects :user="user" />
             </div>
         </div>
     </div>
@@ -43,5 +43,24 @@ get();
 
     .resume {
         @apply p-4 rounded-lg overflow-hidden;
+    }
+
+    .resume-body {
+        @media (width <= 1440px) {
+            display: flex;
+            flex-direction: column;
+            @apply gap-6;
+        }
+
+        @media (width > 1440px) {
+            display: grid;
+            @apply gap-6;
+        }
+    }
+
+    .milestones-container {
+        @media (width > 1440px) {
+            grid-column: 1 / span 1; grid-row: 1 / span 2;
+        }
     }
 </style>
