@@ -2,6 +2,7 @@
 
 import { ref, inject } from 'vue'
 import { fetchUser } from '@js/fetch.mjs'
+
 import ResumeHead from './ResumeHead.vue';
 import Milestones from './Milestones.vue';
 import Skills from './Skills.vue';
@@ -19,7 +20,7 @@ get();
 
 <template>
     <!-- make response, maybe even "reactive" -->
-    <div v-if="user" class="resume">
+    <div v-if="user" class="resume bg-neutral-100 dark:bg-neutral-800">
         <ResumeHead :user="user" />
         <div class="flex flex-row p-2 w-full" style="gap: 2rem;">
             <div class="flex flex-col p-4" style="width: 50%;">
@@ -41,6 +42,6 @@ get();
     @reference "tailwindcss";
 
     .resume {
-        @apply p-4 bg-white dark:bg-neutral-800 rounded-lg overflow-hidden;
+        @apply p-4 rounded-lg overflow-hidden;
     }
 </style>

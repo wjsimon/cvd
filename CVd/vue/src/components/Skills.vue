@@ -31,6 +31,7 @@ function getCategoryClass(category) {
 
     .skill {
         @apply relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-neutral-900 rounded-lg;
+        font-family: sharetech;
     }
 
     .skill.category-1 {

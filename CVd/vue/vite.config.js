@@ -16,6 +16,7 @@ export default defineConfig({
       '@src': '/src',
       '@js': '/src/js',
       '@assets': '/src/assets',
+      '@components': '/src/components',
     },
   },
     server: {

@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
 <span class="text-xl p-2 mb-2 underline">Milestones</span>
 <div class="flex flex-col gap-4">
-    <div v-for="entry in user.milestones" class="milestone">
+    <div v-for="entry in user.milestones" class="milestone bg-neutral-100 dark:bg-neutral-800">
         <div class="milestone-head">
             <span class="head-job">{{ entry.description.row1 }}</span>
             <span class="head-date">{{ entry.start }} - {{ entry.end }}</span>
@@ -31,8 +31,8 @@ const props = defineProps({
     @reference "tailwindcss";
 
     .milestone {
-            @apply flex flex-col gap-1 rounded-sm bg-neutral-100 p-2 mt-2;
-        }
+        @apply flex flex-col gap-1 rounded-sm p-2 mt-2;
+    }
 
     .milestone-head {
         @apply flex flex-row justify-between font-bold gap-4;
