@@ -1,6 +1,4 @@
 @import "tailwindcss";
-@import url("fira-sans.css");
-
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {

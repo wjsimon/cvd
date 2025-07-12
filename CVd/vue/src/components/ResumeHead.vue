@@ -1,6 +1,5 @@
 <script setup>
 
-import { defineProps, ref } from 'vue'
 import { User } from '@js/user.mjs'
 import { darkMode } from '@src/js/darkmode';
 

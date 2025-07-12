@@ -1,6 +1,5 @@
 <script setup>
 
-import { defineProps } from 'vue'
 import { User} from '@js/user.mjs'
 
 const props = defineProps({
