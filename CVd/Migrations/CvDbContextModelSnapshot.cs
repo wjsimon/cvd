@@ -79,7 +79,7 @@ namespace CVd.Migrations
                     b.Property<int?>("EndOption")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Start")
+                    b.Property<DateOnly?>("Start")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StartOption")

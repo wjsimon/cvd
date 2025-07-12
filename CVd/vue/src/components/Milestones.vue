@@ -15,7 +15,10 @@ const props = defineProps({
         <div class="milestone-head">
             <span class="head-job">{{ entry.description.row1 }}</span>
             <div class="flex flex-row">
-                <span class="head-date">{{ entry.start }}</span><span v-if="entry.end">&nbsp;-&nbsp;{{ entry.end }}</span>
+                <span v-if="!entry.end">seit&nbsp;</span>
+                <span class="head-date">{{ entry.start }}</span>
+                <span v-if="entry.start && entry.end">&nbsp;-&nbsp;{{ entry.end }}</span>
+                <span v-else-if="entry.end">{{ entry.end }}</span>
             </div>
         </div>
         <div v-if="entry.description.row2" class="head-title">
