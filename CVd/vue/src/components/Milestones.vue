@@ -20,7 +20,7 @@ const props = defineProps({
             </div>
         </div>
         <div v-if="entry.description.row2" class="head-title">
-            <span class="head-title">{{ entry.description.row2 }}</span>
+            <span class="text-neutral-500 dark:text-neutral-400">{{ entry.description.row2 }}</span>
         </div>
         <div v-if="entry.description.description" class="milestone-content">
             {{ entry.description.description }}
@@ -42,7 +42,7 @@ const props = defineProps({
     }
 
     .head-title {
-        @apply text-left;
+        @apply text-left italic;
     }
 
     .head-date {
@@ -50,6 +50,6 @@ const props = defineProps({
     }
 
     .milestone-content {
-        @apply text-left mb-1 mt-1;
+        @apply text-left mb-1 mt-1 pt-1;
     }
 </style>

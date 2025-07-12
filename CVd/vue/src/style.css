@@ -43,7 +43,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  font-family: FiraSans-Variable;
+  font-family: fira;
   transition: color .1s linear, background-color .1s linear;
 }
 
