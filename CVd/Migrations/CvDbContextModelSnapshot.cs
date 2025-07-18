@@ -79,7 +79,7 @@ namespace CVd.Migrations
                     b.Property<int?>("EndOption")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("Start")
+                    b.Property<DateOnly?>("Start")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("StartOption")
@@ -124,6 +124,15 @@ namespace CVd.Migrations
             modelBuilder.Entity("CVd.Data.Project", b =>
                 {
                     b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SortOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TagsString")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")

@@ -9,7 +9,7 @@ namespace CVd.Data
         [ForeignKey("UserId")] public required int UserId { get; set; }
         
         public required string DescriptionId { get; set; } //not a foreign key; aggregated at runtime based on languagecode
-        public required DateOnly Start { get; set; }
+        public DateOnly? Start { get; set; }
         public DateOption StartOption { get; set; } = 0;
         public DateOnly? End { get; set; }
         public DateOption? EndOption { get; set; } = 0;
