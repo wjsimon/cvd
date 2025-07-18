@@ -10,7 +10,9 @@ namespace CVd.Data
 
         public string? Link { get; set; }
         public int? SortOrder { get; set; }
+        public string? TagsString { get; set; }
 
         [NotMapped] public ProjectDescription? Description { get; set; }
+        [NotMapped] public List<string> Tags => TagsString?.Split(',').ToList() ?? [];
     }
 }

@@ -1,6 +1,9 @@
 <script setup>
 
-import { User} from '@js/user.mjs'
+import { User } from '@js/user.mjs'
+import { getResourceCurrent } from '@src/js/localization.mjs';
+import { normalizePos, randomInRange, colorSpread } from '@js/screen.mjs';
+import confetti from 'canvas-confetti';
 
 const props = defineProps({
     user: User
@@ -14,12 +17,25 @@ function getCategoryClass(category) {
         default: return '';
     };
 }
+
+function cannon(e) {
+    let origin = normalizePos(e);
+    confetti({
+        angle: randomInRange(65, 115),
+        spread: randomInRange(50, 65),
+        particleCount: randomInRange(50, 100),
+        origin: { x: origin[0], y: origin[1] },
+        startVelocity: 30,
+        colors: colorSpread(e)
+    });
+}
+
 </script>
 
 <template>
-    <span class="text-xl p-2 mb-2 underline">Skills</span>
+    <span class="text-xl p-2 mb-2 underline">{{ getResourceCurrent('skills') }}</span>
     <div class="flex flex-row flex-wrap gap-4">
-        <div v-for="entry in user.skills" class="skill dark:skill-dark" :class="getCategoryClass(entry.category)">
+        <div v-for="entry in user.skills" class="skill hover:cursor-pointer" :class="getCategoryClass(entry.category)" @click="cannon">
             <span class="bg-neutral-100 dark:bg-neutral-800">{{ entry.displayValue }}</span>
         </div>
     </div>
@@ -34,7 +50,7 @@ function getCategoryClass(category) {
     }
 
     .skill.category-1 {
-        @apply border-2 border-blue-700;
+        @apply border-2 border-blue-600;
     }
 
     .skill.category-2 {
@@ -62,15 +78,27 @@ function getCategoryClass(category) {
     }
 
     .skill.category-1 > span {
-        @apply hover:bg-blue-400; /*900*/
+        @apply hover:bg-blue-300;
+        
+        &:where(.dark, .dark *) {
+            @apply hover:bg-blue-900;
+        }
     }
 
     .skill.category-2 > span {
-        @apply hover:bg-red-300; /*800*/
+        @apply hover:bg-red-300;
+        
+        &:where(.dark, .dark *) {
+            @apply hover:bg-red-800;
+        }
     }
 
     .skill.category-3 > span {
-        @apply hover:bg-green-300; /*700*/
+        @apply hover:bg-green-300;
+        
+        &:where(.dark, .dark *) {
+            @apply hover:bg-green-700;
+        }
     }
 
 </style>

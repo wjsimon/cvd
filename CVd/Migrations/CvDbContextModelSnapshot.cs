@@ -132,6 +132,9 @@ namespace CVd.Migrations
                     b.Property<int?>("SortOrder")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("TagsString")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 

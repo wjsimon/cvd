@@ -8,7 +8,6 @@
   font-weight: 400;
 
   color: var(--color-neutral-700);
-  background-color: #ff0000;
 
   transition: color .1s linear, background-color .1s linear;
 
@@ -69,11 +68,11 @@ button {
   text-align: center;
   transition: color .1s linear, background-color .1s linear;
 
-  @media (width <= 1440px) {
+  @media (width <= 1560px) {
     max-width: 1024px;
   }
 
-  @media (width > 1440px) {
+  @media (width > 1560px) {
     max-width: 1600px;
   }
 }

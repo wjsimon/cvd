@@ -1,6 +1,7 @@
 <script setup>
 
-import { User} from '@js/user.mjs'
+import { User } from '@js/user.mjs'
+import { getResourceCurrent } from '@src/js/localization.mjs';
 
 const props = defineProps({
     user: User
@@ -10,7 +11,7 @@ const props = defineProps({
 
 <template>
 <div class="flex flex-col gap-4">
-    <span class="text-xl p-2 mb-2 underline">Milestones</span>
+    <span class="text-xl p-2 mb-2 underline">{{ getResourceCurrent('milestones') }}</span>
     <div v-for="entry in user.milestones" class="milestone bg-neutral-100 dark:bg-neutral-800">
         <div class="milestone-head">
             <span class="head-job">{{ entry.description.row1 }}</span>
