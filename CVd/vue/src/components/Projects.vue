@@ -20,7 +20,7 @@ const props = defineProps({
                 </div>
             </div>
             <span class="">{{ entry.description.description }}</span>
-            <a :href="entry.link" class="font-bold self-end mt-2">{{ entry.link }}</a>
+            <a :href="entry.link" target="_blank" rel="noopener noreferrer" class="font-bold self-end mt-2">{{ entry.link }}</a>
         </div>
     </div>
 </template>

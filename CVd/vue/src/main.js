@@ -17,7 +17,7 @@ setResource('de', new Map([
 setResource('en', new Map([
     ['milestones', 'Resume'],
     ['skills', 'Skills'],
-    ['projects', 'Projects'],
+    ['projects', 'Project Showcase'],
     ['print-info', 'This document was printed from an interactive web page. This web page is also available publicly on my github here: www.github.com/wjsimon/cvd']
 ]));
 
